@@ -92,7 +92,7 @@
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('hero-bg.jpg');
             background-size: cover;
             background-position: center;
             padding: 120px 0;
@@ -190,6 +190,8 @@
             justify-content: center;
             color: #777;
             font-size: 1.2rem;
+            background-size: cover;
+            background-position: center;
         }
         
         .service-content {
@@ -241,6 +243,8 @@
             justify-content: center;
             color: #777;
             font-size: 1.2rem;
+            background-size: cover;
+            background-position: center;
         }
         
         .bundle-content {
@@ -477,15 +481,15 @@
                 </div>
                 <div class="contact-form">
                     <h3>Send Us a Message</h3>
-                    <form id="contactForm">
+                    <form id="contactForm" action="mailto:bisonmarketingdigital@gmail.com" method="post" enctype="text/plain">
                         <div style="margin-bottom: 15px;">
-                            <input type="text" placeholder="Your Name" style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid var(--light-gray); background-color: var(--gray); color: var(--light);">
+                            <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid var(--light-gray); background-color: var(--gray); color: var(--light);">
                         </div>
                         <div style="margin-bottom: 15px;">
-                            <input type="email" placeholder="Your Email" style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid var(--light-gray); background-color: var(--gray); color: var(--light);">
+                            <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid var(--light-gray); background-color: var(--gray); color: var(--light);">
                         </div>
                         <div style="margin-bottom: 15px;">
-                            <textarea placeholder="Your Message" rows="5" style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid var(--light-gray); background-color: var(--gray); color: var(--light);"></textarea>
+                            <textarea name="message" placeholder="Your Message" rows="5" required style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid var(--light-gray); background-color: var(--gray); color: var(--light);"></textarea>
                         </div>
                         <button type="submit" class="btn">Send Message</button>
                     </form>
@@ -493,7 +497,6 @@
             </div>
         </div>
     </section>
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -511,76 +514,85 @@
     </footer>
 
     <script>
-        // Services data
+        // Services data with image names
         const services = [
             {
                 name: "Digital Poster",
                 description: "Custom-designed promotional graphic",
-                price: "$29.99"
+                price: "$29.99",
+                image: "digital-poster.jpg"
             },
             {
                 name: "Copywriting for Social Media",
                 description: "Engaging caption & hashtag set (per post)",
-                price: "$14.99"
+                price: "$14.99",
+                image: "copywriting-social.jpg"
             },
             {
                 name: "Custom Logo & Color Palette",
                 description: "Professional brand identity package",
-                price: "$399"
+                price: "$399",
+                image: "logo-color-palette.jpg"
             },
             {
                 name: "Monthly Content Calendar",
                 description: "12 posts • captions planning",
-                price: "$360"
+                price: "$360",
+                image: "content-calendar.jpg"
             },
             {
                 name: "1-Page Website",
                 description: "Fast, responsive, professional design (1 page and 1 contact page)",
-                price: "$899"
+                price: "$899",
+                image: "one-page-website.jpg"
             },
             {
                 name: "Google Business Profile Setup",
                 description: "Registration & optimization",
-                price: "$349"
+                price: "$349",
+                image: "google-business.jpg"
             },
             {
                 name: "Ad Campaign Setup (2 months)",
                 description: "Facebook • Instagram targeting (8 posts – digital content and copywrite)",
-                price: "$499"
+                price: "$499",
+                image: "ad-campaign.jpg"
             },
             {
                 name: "Promotional Video (each)",
                 description: "High-impact video optimized for social",
-                price: "$499"
+                price: "$499",
+                image: "promotional-video.jpg"
             },
             {
                 name: "Analytics Dashboard Setup",
                 description: "Visual performance report",
-                price: "$129"
+                price: "$129",
+                image: "analytics-dashboard.jpg"
             }
         ];
 
-        // Bundles data
+        // Bundles data with image names (no prices)
         const bundles = [
             {
                 name: "Trailblazer",
                 description: "Starter package perfect for new businesses looking to establish their digital presence.",
-                price: "Starting at $599"
+                image: "trailblazer-bundle.jpg"
             },
             {
                 name: "Stampede",
                 description: "Pro-digital package for businesses ready to accelerate their growth with comprehensive marketing.",
-                price: "Starting at $999"
+                image: "stampede-bundle.jpg"
             },
             {
                 name: "Visibility",
                 description: "Web and SEO kit designed to maximize your online visibility and search engine rankings.",
-                price: "Starting at $1,299"
+                image: "visibility-bundle.jpg"
             },
             {
                 name: "Legacy Growth",
                 description: "Complete growth package for established businesses looking to scale and dominate their market.",
-                price: "Starting at $1,999"
+                image: "legacy-bundle.jpg"
             }
         ];
 
@@ -591,8 +603,8 @@
             const serviceCard = document.createElement('div');
             serviceCard.className = 'service-card';
             serviceCard.innerHTML = `
-                <div class="service-img">
-                    <i class="fas fa-image"></i>
+                <div class="service-img" style="background-image: url('${service.image}')">
+                    <!-- Image: ${service.image} -->
                 </div>
                 <div class="service-content">
                     <h3>${service.name}</h3>
@@ -604,20 +616,19 @@
             servicesGrid.appendChild(serviceCard);
         });
 
-        // Generate bundle cards
+        // Generate bundle cards (without prices)
         const bundlesGrid = document.querySelector('.bundles-grid');
         
         bundles.forEach(bundle => {
             const bundleCard = document.createElement('div');
             bundleCard.className = 'bundle-card';
             bundleCard.innerHTML = `
-                <div class="bundle-img">
-                    <i class="fas fa-box"></i>
+                <div class="bundle-img" style="background-image: url('${bundle.image}')">
+                    <!-- Image: ${bundle.image} -->
                 </div>
                 <div class="bundle-content">
                     <h3>${bundle.name}</h3>
                     <p>${bundle.description}</p>
-                    <div class="price">${bundle.price}</div>
                     <a href="#contact" class="btn btn-secondary">Learn More</a>
                 </div>
             `;
