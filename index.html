@@ -228,11 +228,19 @@
             border-radius: 10px;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
         }
         
         .bundle-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .bundle-card.zoomed {
+            transform: scale(1.1);
+            z-index: 10;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
         
         .bundle-img {
@@ -245,6 +253,11 @@
             font-size: 1.2rem;
             background-size: cover;
             background-position: center;
+            transition: transform 0.3s;
+        }
+        
+        .bundle-card.zoomed .bundle-img {
+            transform: scale(1.05);
         }
         
         .bundle-content {
@@ -396,6 +409,10 @@
             .section-title h2 {
                 font-size: 2rem;
             }
+            
+            .bundle-card.zoomed {
+                transform: scale(1.05);
+            }
         }
     </style>
 </head>
@@ -468,35 +485,19 @@
                 <h2>Get In Touch</h2>
                 <p>Contact us to discuss your digital marketing needs</p>
             </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <p><i class="fas fa-phone"></i> <a href="tel:3074318328">307-431-8328</a></p>
-                    <p><i class="fas fa-envelope"></i> <a href="mailto:bisonmarketingdigital@gmail.com">bisonmarketingdigital@gmail.com</a></p>
-                    <p><i class="fas fa-map-marker-alt"></i> Serving clients nationwide</p>
-                    
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/share/1GW2oYLZTN/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <h3>Send Us a Message</h3>
-                    <form id="contactForm" action="mailto:bisonmarketingdigital@gmail.com" method="post" enctype="text/plain">
-                        <div style="margin-bottom: 15px;">
-                            <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid var(--light-gray); background-color: var(--gray); color: var(--light);">
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid var(--light-gray); background-color: var(--gray); color: var(--light);">
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <textarea name="message" placeholder="Your Message" rows="5" required style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid var(--light-gray); background-color: var(--gray); color: var(--light);"></textarea>
-                        </div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p><i class="fas fa-phone"></i> <a href="tel:3074318328">307-431-8328</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:bisonmarketingdigital@gmail.com">bisonmarketingdigital@gmail.com</a></p>
+                <p><i class="fas fa-map-marker-alt"></i> Serving clients nationwide</p>
+                
+                <div class="social-links">
+                    <a href="https://www.facebook.com/share/1GW2oYLZTN/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -635,21 +636,43 @@
             bundlesGrid.appendChild(bundleCard);
         });
 
+        // Bundle card zoom functionality
+        const bundleCards = document.querySelectorAll('.bundle-card');
+        let currentlyZoomed = null;
+        
+        bundleCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                // If this card is already zoomed, unzoom it
+                if (this.classList.contains('zoomed')) {
+                    this.classList.remove('zoomed');
+                    currentlyZoomed = null;
+                } else {
+                    // If another card is zoomed, unzoom it first
+                    if (currentlyZoomed) {
+                        currentlyZoomed.classList.remove('zoomed');
+                    }
+                    
+                    // Zoom this card
+                    this.classList.add('zoomed');
+                    currentlyZoomed = this;
+                }
+            });
+        });
+        
+        // Unzoom when clicking outside of bundle cards
+        document.addEventListener('click', function(e) {
+            if (currentlyZoomed && !currentlyZoomed.contains(e.target)) {
+                currentlyZoomed.classList.remove('zoomed');
+                currentlyZoomed = null;
+            }
+        });
+
         // Mobile menu toggle
         const mobileMenu = document.querySelector('.mobile-menu');
         const navLinks = document.querySelector('.nav-links');
         
         mobileMenu.addEventListener('click', () => {
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        });
-
-        // Form submission
-        const contactForm = document.getElementById('contactForm');
-        
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
-            contactForm.reset();
         });
     </script>
 </body>
