@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bison Digital Marketing</title>
+    <title>Bison Digital Marketing & Web Development</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #ff6b35;
             --secondary: #00a8e8;
+            --accent: #9d4edd;
+            --accent-light: #c77dff;
+            --success: #38b000;
             --dark: #121212;
             --darker: #0a0a0a;
             --light: #f8f9fa;
             --gray: #2d2d2d;
             --light-gray: #444;
+            --gradient-primary: linear-gradient(135deg, #ff6b35 0%, #ff8e53 100%);
+            --gradient-secondary: linear-gradient(135deg, #00a8e8 0%, #4cc9f0 100%);
+            --gradient-accent: linear-gradient(135deg, #9d4edd 0%, #c77dff 100%);
+            --gradient-success: linear-gradient(135deg, #38b000 0%, #70e000 100%);
         }
         
         * {
@@ -27,6 +34,7 @@
             background-color: var(--dark);
             color: var(--light);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
@@ -38,12 +46,13 @@
         
         /* Header Styles */
         header {
-            background-color: var(--darker);
+            background-color: rgba(10, 10, 10, 0.95);
             padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
         }
         
         .header-content {
@@ -53,15 +62,21 @@
         }
         
         .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 2rem;
+            font-weight: 800;
             color: var(--light);
             display: flex;
             align-items: center;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--light) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .logo span {
             color: var(--primary);
+            -webkit-text-fill-color: var(--primary);
         }
         
         .nav-links {
@@ -76,115 +91,351 @@
         .nav-links a {
             color: var(--light);
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            position: relative;
+        }
+        
+        .nav-links a i {
+            margin-right: 8px;
+            font-size: 0.9rem;
         }
         
         .nav-links a:hover {
             color: var(--primary);
         }
         
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links .web-dev-link {
+            color: var(--accent-light);
+            font-weight: 700;
+        }
+        
         .mobile-menu {
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: var(--light);
         }
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('hero-bg.jpg');
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
-            padding: 120px 0;
+            background-attachment: fixed;
+            padding: 150px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(157, 78, 221, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 20%, rgba(255, 107, 53, 0.15) 0%, transparent 50%);
+            z-index: 1;
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 2;
         }
         
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
+            font-size: 3.8rem;
+            margin-bottom: 25px;
             color: var(--light);
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero h1 .highlight {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-accent);
+            border-radius: 3px;
         }
         
         .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 50px;
             color: #ddd;
+            font-weight: 300;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
         }
         
         .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: var(--light);
-            padding: 12px 30px;
-            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
+            font-weight: 700;
+            transition: all 0.4s;
             border: none;
             cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
         }
         
         .btn:hover {
-            background-color: #e55a2b;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+        }
+        
+        .btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
         
         .btn-secondary {
-            background-color: var(--secondary);
+            background: var(--gradient-secondary);
+            box-shadow: 0 5px 20px rgba(0, 168, 232, 0.3);
         }
         
         .btn-secondary:hover {
-            background-color: #0094cc;
-            box-shadow: 0 5px 15px rgba(0, 168, 232, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 168, 232, 0.5);
+        }
+        
+        .btn-accent {
+            background: var(--gradient-accent);
+            box-shadow: 0 5px 20px rgba(157, 78, 221, 0.3);
+        }
+        
+        .btn-accent:hover {
+            box-shadow: 0 10px 25px rgba(157, 78, 221, 0.5);
+        }
+        
+        .btn-success {
+            background: var(--gradient-success);
+            box-shadow: 0 5px 20px rgba(56, 176, 0, 0.3);
+        }
+        
+        .btn-success:hover {
+            box-shadow: 0 10px 25px rgba(56, 176, 0, 0.5);
         }
         
         /* Section Styles */
         section {
-            padding: 80px 0;
+            padding: 100px 0;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 70px;
+            position: relative;
         }
         
         .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 20px;
             color: var(--light);
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
         }
         
         .section-title p {
             color: #aaa;
             max-width: 700px;
             margin: 0 auto;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        /* Web Development Banner */
+        .web-dev-banner {
+            background: linear-gradient(135deg, rgba(157, 78, 221, 0.15), rgba(0, 168, 232, 0.15));
+            border-left: 5px solid transparent;
+            border-image: var(--gradient-accent);
+            border-image-slice: 1;
+            padding: 35px;
+            border-radius: 15px;
+            margin-bottom: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .web-dev-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="none"/><path d="M0,0 L20,20 M20,0 L0,20" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></svg>');
+            z-index: 0;
+        }
+        
+        .web-dev-banner-content {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .web-dev-banner-content h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--light);
+            font-weight: 700;
+        }
+        
+        .web-dev-banner-content h3 i {
+            margin-right: 15px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .web-dev-banner-content p {
+            color: #bbb;
+            max-width: 600px;
+            font-size: 1.1rem;
         }
         
         /* Services Section */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 35px;
         }
         
         .service-card {
-            background-color: var(--gray);
-            border-radius: 10px;
+            background: linear-gradient(145deg, var(--gray) 0%, var(--darker) 100%);
+            border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.4s;
             height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+        
+        .service-card.web-dev::before {
+            background: var(--gradient-accent);
         }
         
         .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 107, 53, 0.2);
+        }
+        
+        .service-card.web-dev:hover {
+            border-color: rgba(157, 78, 221, 0.2);
+        }
+        
+        .service-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 3px 10px rgba(157, 78, 221, 0.3);
+            z-index: 2;
         }
         
         .service-img {
-            height: 200px;
-            background-color: var(--light-gray);
+            height: 220px;
+            background: linear-gradient(135deg, var(--light-gray) 0%, #555 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -192,60 +443,213 @@
             font-size: 1.2rem;
             background-size: cover;
             background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 100%);
         }
         
         .service-content {
-            padding: 25px;
+            padding: 30px;
+            position: relative;
         }
         
         .service-content h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 15px;
             color: var(--light);
+            font-weight: 700;
         }
         
         .service-content p {
             color: #bbb;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            line-height: 1.7;
         }
         
         .price {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .web-dev-price {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .price::before {
+            content: '💰';
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 15px;
+            color: var(--accent-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 8px 0;
+        }
+        
+        .service-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .service-link i {
+            margin-right: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .service-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Web Development Sidebar */
+        .web-dev-sidebar {
+            background: linear-gradient(145deg, rgba(157, 78, 221, 0.1), rgba(0, 0, 0, 0.2));
+            border-radius: 15px;
+            padding: 35px;
+            margin-top: 50px;
+            border-left: 4px solid transparent;
+            border-image: var(--gradient-accent);
+            border-image-slice: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .web-dev-sidebar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(157, 78, 221, 0.05) 0%, transparent 70%);
+            z-index: 0;
+        }
+        
+        .web-dev-sidebar > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .web-dev-sidebar h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+        }
+        
+        .web-dev-sidebar h3 i {
+            margin-right: 15px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+        }
+        
+        .web-dev-sidebar p {
+            color: #bbb;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .web-dev-features {
+            list-style: none;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .web-dev-features li {
+            padding: 12px 15px;
+            color: #bbb;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .web-dev-features li:hover {
+            background: rgba(157, 78, 221, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .web-dev-features li i {
+            margin-right: 12px;
+            color: var(--accent);
+            font-size: 1.2rem;
         }
         
         /* Bundles Section */
         .bundles-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
         }
         
         .bundle-card {
-            background-color: var(--gray);
-            border-radius: 10px;
+            background: linear-gradient(145deg, var(--gray) 0%, var(--darker) 100%);
+            border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.4s;
             cursor: pointer;
             position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bundle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-secondary);
         }
         
         .bundle-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 168, 232, 0.2);
         }
         
         .bundle-card.zoomed {
             transform: scale(1.1);
             z-index: 10;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
         }
         
         .bundle-img {
-            height: 200px;
-            background-color: var(--light-gray);
+            height: 220px;
+            background: linear-gradient(135deg, var(--light-gray) 0%, #555 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -254,6 +658,18 @@
             background-size: cover;
             background-position: center;
             transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bundle-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 100%);
         }
         
         .bundle-card.zoomed .bundle-img {
@@ -261,93 +677,179 @@
         }
         
         .bundle-content {
-            padding: 25px;
+            padding: 30px;
         }
         
         .bundle-content h3 {
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             margin-bottom: 15px;
             color: var(--light);
+            font-weight: 700;
         }
         
         .bundle-content p {
             color: #bbb;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            line-height: 1.7;
         }
         
         /* CTA Section */
         .cta {
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             text-align: center;
-            padding: 100px 0;
+            padding: 140px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(157, 78, 221, 0.1) 0%, transparent 50%);
+            z-index: 1;
+        }
+        
+        .cta .container {
+            position: relative;
+            z-index: 2;
         }
         
         .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 3.2rem;
+            margin-bottom: 25px;
             color: var(--light);
+            font-weight: 800;
+            line-height: 1.2;
         }
         
         .cta p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 50px;
             color: #ddd;
+            font-weight: 300;
         }
         
         /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+        .contact-info {
+            background: linear-gradient(145deg, var(--gray) 0%, var(--darker) 100%);
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .contact-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+            font-size: 2rem;
+            margin-bottom: 30px;
             color: var(--light);
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
         }
         
         .contact-info p {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: #bbb;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        
+        .contact-info p i {
+            margin-right: 15px;
+            color: var(--secondary);
+            width: 20px;
+            font-size: 1.3rem;
         }
         
         .contact-info a {
             color: var(--secondary);
             text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .contact-info a:hover {
+            color: var(--primary);
+        }
+        
+        .contact-info a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s;
+        }
+        
+        .contact-info a:hover::after {
+            width: 100%;
         }
         
         .social-links {
             display: flex;
-            margin-top: 20px;
+            margin-top: 30px;
         }
         
         .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: var(--light-gray);
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(145deg, var(--light-gray), #555);
             border-radius: 50%;
-            margin-right: 15px;
+            margin-right: 20px;
             color: var(--light);
             text-decoration: none;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.3rem;
         }
         
         .social-links a:hover {
-            background-color: var(--primary);
+            background: var(--gradient-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        .social-links a:nth-child(2):hover {
+            background: var(--gradient-accent);
+            box-shadow: 0 10px 20px rgba(157, 78, 221, 0.4);
         }
         
         /* Footer */
         footer {
-            background-color: var(--darker);
-            padding: 40px 0;
+            background-color: rgba(10, 10, 10, 0.98);
+            padding: 60px 0 30px;
             text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .footer-content {
@@ -357,42 +859,108 @@
         }
         
         .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
             color: var(--light);
-        }
-        
-        .footer-logo span {
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--light) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .footer-links {
             display: flex;
             list-style: none;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
         }
         
         .footer-links li {
-            margin: 0 15px;
+            margin: 0 10px;
         }
         
         .footer-links a {
             color: #bbb;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.03);
         }
         
         .footer-links a:hover {
             color: var(--primary);
+            background: rgba(255, 107, 53, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links .web-dev-link {
+            color: var(--accent-light);
+            background: rgba(157, 78, 221, 0.1);
+        }
+        
+        .footer-links .web-dev-link:hover {
+            background: rgba(157, 78, 221, 0.2);
         }
         
         .copyright {
             color: #777;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            filter: blur(20px);
+            z-index: 0;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .floating-element:nth-child(odd) {
+            animation-delay: -5s;
+        }
+        
+        .floating-element:nth-child(2) {
+            background: radial-gradient(circle, rgba(157, 78, 221, 0.1) 0%, transparent 70%);
+            animation-delay: -10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -50px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
         }
         
         /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+            
+            .web-dev-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -402,30 +970,88 @@
                 display: block;
             }
             
+            .hero {
+                padding: 100px 0;
+            }
+            
             .hero h1 {
                 font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .bundle-card.zoomed {
+                transform: scale(1.05);
+            }
+            
+            .web-dev-banner-content h3 {
+                font-size: 1.7rem;
+            }
+            
+            .services-grid, .bundles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
             }
             
             .section-title h2 {
                 font-size: 2rem;
             }
             
-            .bundle-card.zoomed {
-                transform: scale(1.05);
+            .service-card, .bundle-card {
+                margin-bottom: 20px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .footer-links li {
+                margin: 5px 0;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Floating background elements -->
+    <div class="floating-element" style="top: 10%; left: 5%;"></div>
+    <div class="floating-element" style="top: 20%; right: 10%;"></div>
+    <div class="floating-element" style="bottom: 30%; left: 15%;"></div>
+    
     <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">Bison<span>Digital</span></div>
                 <ul class="nav-links">
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#bundles">Bundles</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#services"><i class="fas fa-th"></i>Services</a></li>
+                    <li><a href="#bundles"><i class="fas fa-box"></i>Bundles</a></li>
+                    <li><a href="https://checonieto.github.io/bisondeveloper/" target="_blank" class="web-dev-link"><i class="fas fa-code"></i>Web Development</a></li>
+                    <li><a href="#contact"><i class="fas fa-phone"></i>Contact</a></li>
                 </ul>
                 <div class="mobile-menu">
                     <i class="fas fa-bars"></i>
@@ -437,9 +1063,13 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Digital Marketing That Drives Results</h1>
-            <p>We help businesses grow with strategic digital marketing solutions tailored to your unique needs and goals.</p>
-            <a href="#services" class="btn">Explore Services</a>
+            <h1>Digital Marketing & <span class="highlight">Web Development</span> That Drives Results</h1>
+            <p>We help businesses grow with strategic digital marketing solutions and professional web development services tailored to your unique needs and goals.</p>
+            <div class="cta-buttons">
+                <a href="#services" class="btn"><i class="fas fa-rocket"></i> Explore Services</a>
+                <a href="https://checonieto.github.io/bisondeveloper/" target="_blank" class="btn btn-accent"><i class="fas fa-code"></i> View Web Development</a>
+                <a href="#contact" class="btn btn-secondary"><i class="fas fa-phone"></i> Get Free Quote</a>
+            </div>
         </div>
     </section>
 
@@ -447,11 +1077,36 @@
     <section id="services">
         <div class="container">
             <div class="section-title">
-                <h2>À La Carte Services</h2>
-                <p>Order individual services or bundle up to save more!</p>
+                <h2>Our Services</h2>
+                <p>Order individual services or bundle up to save more! All services include professional execution and quality results.</p>
             </div>
+            
+            <!-- Web Development Banner -->
+            <div class="web-dev-banner">
+                <div class="web-dev-banner-content">
+                    <h3><i class="fas fa-code"></i> Professional Web Development Services</h3>
+                    <p>Need a custom website? Our web development team creates fast, responsive, and professional websites that convert visitors into customers.</p>
+                </div>
+                <a href="https://checonieto.github.io/bisondeveloper/" target="_blank" class="btn btn-accent"><i class="fas fa-external-link-alt"></i> View Web Development</a>
+            </div>
+            
             <div class="services-grid">
                 <!-- Service cards will be generated by JavaScript -->
+            </div>
+            
+            <!-- Web Development Sidebar -->
+            <div class="web-dev-sidebar">
+                <h3><i class="fas fa-laptop-code"></i> Need More Than a 1-Page Website?</h3>
+                <p>Our web development team can build custom solutions for your business:</p>
+                <ul class="web-dev-features">
+                    <li><i class="fas fa-check-circle"></i> Multi-page business websites</li>
+                    <li><i class="fas fa-check-circle"></i> E-commerce stores</li>
+                    <li><i class="fas fa-check-circle"></i> Custom web applications</li>
+                    <li><i class="fas fa-check-circle"></i> Website maintenance & support</li>
+                    <li><i class="fas fa-check-circle"></i> SEO optimization</li>
+                    <li><i class="fas fa-check-circle"></i> Mobile-responsive design</li>
+                </ul>
+                <a href="https://checonieto.github.io/bisondeveloper/" target="_blank" class="btn btn-accent"><i class="fas fa-external-link-alt"></i> Explore Web Development Services</a>
             </div>
         </div>
     </section>
@@ -461,8 +1116,16 @@
         <div class="container">
             <div class="section-title">
                 <h2>Cost-Effective Bundles</h2>
-                <p>Save up to 40% with our specially curated packages</p>
+                <p>Save up to 40% with our specially curated packages designed for maximum impact</p>
             </div>
+            
+            <!-- Web Development Link in Bundles -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <a href="https://checonieto.github.io/bisondeveloper/" target="_blank" class="service-link" style="display: inline-block; font-size: 1.2rem; padding: 12px 25px; background: rgba(157, 78, 221, 0.1); border-radius: 50px;">
+                    <i class="fas fa-code"></i> Looking for custom web development solutions?
+                </a>
+            </div>
+            
             <div class="bundles-grid">
                 <!-- Bundle cards will be generated by JavaScript -->
             </div>
@@ -472,9 +1135,12 @@
     <!-- CTA Section -->
     <section class="cta">
         <div class="container">
-            <h2>Ready to Grow Your Business?</h2>
-            <p>Let's discuss how Bison Digital Marketing can help you achieve your goals with our tailored solutions.</p>
-            <a href="#contact" class="btn">Get Started Today</a>
+            <h2>Ready to Grow Your Business Online?</h2>
+            <p>Let's discuss how Bison Digital Marketing & Web Development can help you achieve your goals with our tailored solutions. Whether you need digital marketing or a professional website, we've got you covered.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-success"><i class="fas fa-calendar-check"></i> Get Started Today</a>
+                <a href="https://checonieto.github.io/bisondeveloper/" target="_blank" class="btn btn-accent"><i class="fas fa-code"></i> Web Development Services</a>
+            </div>
         </div>
     </section>
 
@@ -483,16 +1149,18 @@
         <div class="container">
             <div class="section-title">
                 <h2>Get In Touch</h2>
-                <p>Contact us to discuss your digital marketing needs</p>
+                <p>Contact us to discuss your digital marketing and web development needs</p>
             </div>
             <div class="contact-info">
                 <h3>Contact Information</h3>
                 <p><i class="fas fa-phone"></i> <a href="tel:3074318328">307-431-8328</a></p>
                 <p><i class="fas fa-envelope"></i> <a href="mailto:bisonmarketingdigital@gmail.com">bisonmarketingdigital@gmail.com</a></p>
                 <p><i class="fas fa-map-marker-alt"></i> Serving clients nationwide</p>
+                <p><i class="fas fa-code"></i> <a href="https://checonieto.github.io/bisondeveloper/" target="_blank">Web Development Services</a></p>
                 
                 <div class="social-links">
                     <a href="https://www.facebook.com/share/1GW2oYLZTN/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://checonieto.github.io/bisondeveloper/" target="_blank"><i class="fas fa-code"></i></a>
                 </div>
             </div>
         </div>
@@ -502,14 +1170,15 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">Bison<span>Digital</span></div>
+                <div class="footer-logo">BisonDigital</div>
                 <ul class="footer-links">
                     <li><a href="#services">Services</a></li>
                     <li><a href="#bundles">Bundles</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="https://checonieto.github.io/bisondeveloper/" target="_blank">Website Development</a></li>
+                    <li><a href="https://checonieto.github.io/bisondeveloper/" target="_blank" class="web-dev-link"><i class="fas fa-code"></i> Web Development</a></li>
+                    <li><a href="tel:3074318328"><i class="fas fa-phone"></i> 307-431-8328</a></li>
                 </ul>
-                <p class="copyright">&copy; 2023 Bison Digital Marketing. All rights reserved.</p>
+                <p class="copyright">&copy; 2023 Bison Digital Marketing & Web Development. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -519,57 +1188,67 @@
         const services = [
             {
                 name: "Digital Poster",
-                description: "Custom-designed promotional graphic",
+                description: "Custom-designed promotional graphic for social media, websites, or print",
                 price: "$29.99",
-                image: "digital-poster.jpg"
+                image: "digital-poster.jpg",
+                category: "design"
             },
             {
                 name: "Copywriting for Social Media",
-                description: "Engaging caption & hashtag set (per post)",
+                description: "Engaging caption & hashtag set (per post) designed to boost engagement",
                 price: "$14.99",
-                image: "copywriting-social.jpg"
+                image: "copywriting-social.jpg",
+                category: "content"
             },
             {
                 name: "Custom Logo & Color Palette",
-                description: "Professional brand identity package",
+                description: "Professional brand identity package with logo variations and color scheme",
                 price: "$399",
-                image: "logo-color-palette.jpg"
+                image: "logo-color-palette.jpg",
+                category: "branding"
             },
             {
                 name: "Monthly Content Calendar",
-                description: "12 posts • captions planning",
+                description: "12 posts • captions planning • scheduling recommendations",
                 price: "$360",
-                image: "content-calendar.jpg"
+                image: "content-calendar.jpg",
+                category: "content"
             },
             {
                 name: "1-Page Website",
                 description: "Fast, responsive, professional design (1 page and 1 contact page)",
                 price: "$899",
-                image: "one-page-website.jpg"
+                image: "one-page-website.jpg",
+                category: "web",
+                webDev: true
             },
             {
                 name: "Google Business Profile Setup",
-                description: "Registration & optimization",
+                description: "Registration & optimization to improve local search visibility",
                 price: "$349",
-                image: "google-business.jpg"
+                image: "google-business.jpg",
+                category: "seo"
             },
             {
                 name: "Ad Campaign Setup (2 months)",
                 description: "Facebook • Instagram targeting (8 posts – digital content and copywrite)",
                 price: "$499",
-                image: "ad-campaign.jpg"
+                image: "ad-campaign.jpg",
+                category: "ads"
             },
             {
                 name: "Promotional Video (each)",
-                description: "High-impact video optimized for social",
+                description: "High-impact video optimized for social media engagement",
                 price: "$499",
-                image: "promotional-video.jpg"
+                image: "promotional-video.jpg",
+                category: "video"
             },
             {
                 name: "Analytics Dashboard Setup",
-                description: "Visual performance report",
+                description: "Visual performance report to track your marketing results",
                 price: "$129",
-                image: "analytics-dashboard.jpg"
+                image: "analytics-dashboard.jpg",
+                category: "analytics"
             }
         ];
 
@@ -578,22 +1257,26 @@
             {
                 name: "Trailblazer",
                 description: "Starter package perfect for new businesses looking to establish their digital presence.",
-                image: "trailblazer-bundle.jpg"
+                image: "trailblazer-bundle.jpg",
+                color: "primary"
             },
             {
                 name: "Stampede",
                 description: "Pro-digital package for businesses ready to accelerate their growth with comprehensive marketing.",
-                image: "stampede-bundle.jpg"
+                image: "stampede-bundle.jpg",
+                color: "accent"
             },
             {
                 name: "Visibility",
                 description: "Web and SEO kit designed to maximize your online visibility and search engine rankings.",
-                image: "visibility-bundle.jpg"
+                image: "visibility-bundle.jpg",
+                color: "secondary"
             },
             {
                 name: "Legacy Growth",
                 description: "Complete growth package for established businesses looking to scale and dominate their market.",
-                image: "legacy-bundle.jpg"
+                image: "legacy-bundle.jpg",
+                color: "success"
             }
         ];
 
@@ -602,16 +1285,39 @@
         
         services.forEach(service => {
             const serviceCard = document.createElement('div');
-            serviceCard.className = 'service-card';
+            serviceCard.className = `service-card ${service.category}`;
+            
+            if (service.webDev) {
+                serviceCard.classList.add('web-dev');
+            }
+            
+            // Check if this is the 1-Page Website service to add the special link
+            let extraContent = '';
+            let badge = '';
+            let priceClass = '';
+            
+            if (service.name === "1-Page Website") {
+                extraContent = `<a href="https://checonieto.github.io/bisondeveloper/" target="_blank" class="service-link"><i class="fas fa-external-link-alt"></i> View All Web Development Services</a>`;
+                badge = '<div class="service-badge">Web Development</div>';
+                priceClass = 'web-dev-price';
+            }
+            
+            // Add web dev links to other relevant services
+            if (service.category === "web" || service.name.includes("Website")) {
+                extraContent = `<a href="https://checonieto.github.io/bisondeveloper/" target="_blank" class="service-link"><i class="fas fa-code"></i> Need custom web development?</a>`;
+            }
+            
             serviceCard.innerHTML = `
+                ${badge}
                 <div class="service-img" style="background-image: url('${service.image}')">
                     <!-- Image: ${service.image} -->
                 </div>
                 <div class="service-content">
                     <h3>${service.name}</h3>
                     <p>${service.description}</p>
-                    <div class="price">${service.price}</div>
-                    <a href="#contact" class="btn">Get This Service</a>
+                    ${extraContent}
+                    <div class="price ${priceClass}">${service.price}</div>
+                    <a href="#contact" class="btn" style="width: 100%; text-align: center; padding: 15px;">Get This Service</a>
                 </div>
             `;
             servicesGrid.appendChild(serviceCard);
@@ -623,6 +1329,19 @@
         bundles.forEach(bundle => {
             const bundleCard = document.createElement('div');
             bundleCard.className = 'bundle-card';
+            
+            // Set different border color based on bundle
+            let borderStyle = '';
+            if (bundle.color === 'primary') {
+                borderStyle = 'background: var(--gradient-primary);';
+            } else if (bundle.color === 'secondary') {
+                borderStyle = 'background: var(--gradient-secondary);';
+            } else if (bundle.color === 'accent') {
+                borderStyle = 'background: var(--gradient-accent);';
+            } else if (bundle.color === 'success') {
+                borderStyle = 'background: var(--gradient-success);';
+            }
+            
             bundleCard.innerHTML = `
                 <div class="bundle-img" style="background-image: url('${bundle.image}')">
                     <!-- Image: ${bundle.image} -->
@@ -630,8 +1349,13 @@
                 <div class="bundle-content">
                     <h3>${bundle.name}</h3>
                     <p>${bundle.description}</p>
-                    <a href="#contact" class="btn btn-secondary">Learn More</a>
+                    <a href="#contact" class="btn btn-secondary" style="width: 100%; text-align: center; padding: 15px;">Learn More</a>
                 </div>
+                <style>
+                    .bundle-card:nth-child(${bundles.indexOf(bundle) + 1})::before {
+                        ${borderStyle}
+                    }
+                </style>
             `;
             bundlesGrid.appendChild(bundleCard);
         });
@@ -673,6 +1397,38 @@
         
         mobileMenu.addEventListener('click', () => {
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '70px';
+                navLinks.style.right = '20px';
+                navLinks.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
+                navLinks.style.padding = '25px';
+                navLinks.style.borderRadius = '15px';
+                navLinks.style.boxShadow = '0 10px 30px rgba(0,0,0,0.4)';
+                navLinks.style.width = '220px';
+                navLinks.style.backdropFilter = 'blur(10px)';
+                navLinks.style.border = '1px solid rgba(255,255,255,0.05)';
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.style.display = 'none';
+                }
+            });
+        });
+
+        // Add floating animation to elements on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            document.querySelectorAll('.floating-element').forEach((el, index) => {
+                el.style.transform = `translateY(${rate * (index + 1) * 0.1}px)`;
+            });
         });
     </script>
 </body>
